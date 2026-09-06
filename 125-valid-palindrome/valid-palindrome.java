@@ -1,21 +1,20 @@
 class Solution {
     public boolean isPalindrome(String s) {
         int n= s.length();
-        String str="";
+        StringBuilder str = new StringBuilder();
         for(int i=0;i<n;i++){
             char ch=s.charAt(i);
             if(ch>=97 && ch<=122){
-                str +=ch;
+                str.append(ch);
             }
             else if(ch>=65 && ch<=90){
-                str+=(char)(ch+32);
+                str.append((char)(ch+32));
             }
             else if(ch>=48 && ch<=57){
-                str+=ch;
+                str.append(ch);
             }
         }
-
-        return checkPalindrome(str);
+        return checkPalindrome(str.toString());
     }
     public boolean checkPalindrome(String s){
         int n= s.length();
