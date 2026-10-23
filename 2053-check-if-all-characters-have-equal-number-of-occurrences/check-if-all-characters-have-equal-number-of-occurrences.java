@@ -1,21 +1,20 @@
 class Solution {
     public boolean areOccurrencesEqual(String s) {
-        // int[] freq = new int[26];
-        // for(int i = 0;i<s.length();i++){
-        //     char ch = s.charAt(i);
-        //     freq[ch-'a']++;
-        // }
+        int[] freq = new int[26];
+        for(int i = 0;i<s.length();i++){
+            char ch = s.charAt(i);
+            freq[ch-'a']++;
+        }
         int prev=-1;
-        while(s.length()>0){
-            char ch = s.charAt(0);
-            String s2 = s.replace(ch+"","");
-            int count =s.length()-s2.length(); 
-            if(prev!=-1 && prev != count){
+       for(int i = 0; i<26;i++){
+        if(freq[i]!=0){
+            if(prev!=-1 && prev != freq[i]){
                 return false;
             }
-            prev=count;
-            s=s2;
+            prev= freq[i];
         }
-        return true;
+        
+       }
+       return true;
     }
 }
