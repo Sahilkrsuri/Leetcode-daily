@@ -1,55 +1,31 @@
 class Solution {
-public int countDaysTogether(String arriveAlice, String leaveAlice,String arriveBob, String leaveBob) {
-    int[] month = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    int aAriveMonth = Integer.parseInt(arriveAlice.substring(0, 2));
-    int aAriveDay = Integer.parseInt(arriveAlice.substring(3, 5));
-    int aLeaveMonth = Integer.parseInt(leaveAlice.substring(0, 2));
-    int aLeaveDay = Integer.parseInt(leaveAlice.substring(3, 5));
+    public int countDaysTogether(String arriveAlice, String leaveAlice,
+            String arriveBob, String leaveBob) {
 
-    int bAriveMonth = Integer.parseInt(arriveBob.substring(0, 2));
-    int bAriveDay = Integer.parseInt(arriveBob.substring(3, 5));
-    int bLeaveMonth = Integer.parseInt(leaveBob.substring(0, 2));
-    int bLeaveDay = Integer.parseInt(leaveBob.substring(3, 5));
+        int[] month = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-    int startMonth, startDay;
+        int aStart = toDay(arriveAlice, month);
+        int aEnd = toDay(leaveAlice, month);
 
-    if (aAriveMonth > bAriveMonth ||
-        (aAriveMonth == bAriveMonth && aAriveDay > bAriveDay)) {
+        int bStart = toDay(arriveBob, month);
+        int bEnd = toDay(leaveBob, month);
 
-        startMonth = aAriveMonth;
-        startDay = aAriveDay;
+        int start = Math.max(aStart, bStart);
+        int end = Math.min(aEnd, bEnd);
 
-    } else {
-        startMonth = bAriveMonth;
-        startDay = bAriveDay;
+        return Math.max(0, end - start + 1);
     }
 
-    int endMonth, endDay;
+    private int toDay(String date, int[] month) {
 
-    if (aLeaveMonth < bLeaveMonth ||
-        (aLeaveMonth == bLeaveMonth && aLeaveDay < bLeaveDay)) {
+        int m = Integer.parseInt(date.substring(0, 2));
+        int d = Integer.parseInt(date.substring(3, 5));
 
-        endMonth = aLeaveMonth;
-        endDay = aLeaveDay;
+        for (int i = 0; i < m - 1; i++) {
+            d += month[i];
+        }
 
-    } else {
-        endMonth = bLeaveMonth;
-        endDay = bLeaveDay;
+        return d;
     }
-
-    if (startMonth > endMonth ||
-        (startMonth == endMonth && startDay > endDay)) {
-        return 0;
-    }
-
-    int days = 0;
-
-    for (int i = startMonth - 1; i < endMonth - 1; i++) {
-        days += month[i];
-    }
-    days = days + (endDay - startDay + 1);
-
-    return days;
-}
 }
