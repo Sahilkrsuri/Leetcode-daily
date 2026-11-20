@@ -1,13 +1,12 @@
 class Solution {
     public int search(int[] nums, int target) {
-        int s= 0;
-        int e= nums.length-1;
-        while(s<=e){
-            int mid =s+(e-s)/2;
-            if(target > nums[mid]) s=mid+1;
-            else if (target < nums[mid]) e=mid-1;
-            else return mid;
-        }
-        return -1;
+        return BSearch(nums,target,0,nums.length-1);
+    }
+    public int BSearch(int[] a, int t, int s, int e){
+        if(s>e) return -1;
+        int mid = s+(e-s)/2;
+        if(a[mid]==t) return mid;
+        else if(t>a[mid]) return BSearch(a,t,mid+1,e);
+        else return BSearch(a,t,s,mid-1);
     }
 }
